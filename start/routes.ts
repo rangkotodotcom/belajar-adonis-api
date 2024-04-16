@@ -10,9 +10,14 @@
 import router from '@adonisjs/core/services/router'
 import AuthController from '#controllers/auth_controller'
 
-router.post('/login', [AuthController, 'login'])
 router.get('/', async () => {
   return {
-    hello: 'world',
+    name: process.env.APP_NAME,
+    timezone: process.env.TZ,
+    mode: process.env.NODE_ENV
   }
 })
+
+router.post('/login', [AuthController, 'login'])
+router.post('/register', [AuthController, 'registration'])
+

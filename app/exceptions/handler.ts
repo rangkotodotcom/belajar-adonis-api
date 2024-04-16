@@ -18,7 +18,20 @@ export default class HttpExceptionHandler extends ExceptionHandler {
       return ctx
         .response
         .status(error.status)
-        .send(error.getResponseMessage(error, ctx))
+        .send({
+          status: false,
+          code: error.status,
+          message: error.getResponseMessage(error, ctx)
+        })
+    } if (error instanceof errors.E_UNAUTHORIZED_ACCESS) {
+      return ctx
+        .response
+        .status(error.status)
+        .send({
+          status: false,
+          code: error.status,
+          message: error.getResponseMessage(error, ctx)
+        })
     }
     return super.handle(error, ctx)
   }
